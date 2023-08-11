@@ -1,5 +1,5 @@
 import express from 'express';
-import { ProductManager } from './desafio.js';
+import  ProductManager  from './desafio.js';
 
 const app = express();
 
@@ -15,9 +15,11 @@ app.get('/', (req, res) => {
 
 app.get('/productos/:id', async (req, res) => {
 	const prod = await manager.getProductById(parseInt(req.params.id));
-    if (prod)
-        res.send(prod)
-    res.send("Producto no encontrado")
+    if (prod){
+		res.send(prod)
+	}else{
+		res.send("Producto no encontrado")
+	}
 });
 
 app.get('/productos', async (req, res) => {

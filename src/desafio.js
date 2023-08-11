@@ -1,13 +1,9 @@
 import { promises as fs } from 'fs';
 
-class ProductManager {
-
+export default class ProductManager {
   constructor(path) {
-    
     this.path = path;
-
   }
-  
 
   async addProduct(product) {
     const products = JSON.parse(await fs.readFile(this.path, 'utf-8'));
@@ -20,16 +16,16 @@ class ProductManager {
 
   async getProducts() {
     const products = JSON.parse(await fs.readFile(this.path, 'utf-8'));
-    console.log(products);
+    return (products)
   }
 
   async getProductById(id) {
     const products = JSON.parse(await fs.readFile(this.path, 'utf-8'));
     const prod = products.find((producto) => producto.id === id);
     if (prod) {
-      console.log(prod);
+      return(prod);
     } else {
-      console.log("Producto no existe");
+      return("Producto no existe");
     }
   }
 
@@ -46,7 +42,7 @@ class ProductManager {
       products[indice].stock = stock;
       await fs.writeFile(this.path, JSON.stringify(products));
     } else {
-      console.log("Producto no encontrado");
+      return("Producto no encontrado");
     }
   }
 
@@ -86,7 +82,7 @@ const productManager = new ProductManager("./products.json");
 productManager.addProduct(producto1);
 productManager.addProduct(producto2);
 
-// console.log(productManager.getProducts());
+// return(productManager.getProducts());
 // console.log(productManager.getProductById(2));
 
 // productManager.addProduct(producto1);
@@ -100,4 +96,3 @@ productManager.addProduct(producto2);
 // productManager.updateProduct(1, { title: "Arroz Integral", price: 1200 });
 
 // productManager.deleteProduct(2);
-
