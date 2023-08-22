@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import ProductManager from './ProductManager.js';
+import { v4 as uuidv4 } from 'uuid';
 
 export class CartManager {
   constructor(filePath) {
@@ -9,7 +9,7 @@ export class CartManager {
 
   async createCart() {
     const newCart = {
-      id: incrementarID(),
+      id: uuidv4(),
       products: []
     };
     this.carts.push(newCart);
