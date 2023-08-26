@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { CartManager } from '../controllers/cartManager.js';
 
-const cartManager = new CartManager('./src/models/cart.txt', './src/models/productos.txt');
+const cartManager = new CartManager('./src/models/cart.txt');
 
 const routerCart = Router();
 
 routerCart.post('/', async (req, res) => {
     const newCart = await cartManager.createCart();
-    res.status(201).json(newCart);
+    res.status(201).send(newCart);
 });
 
 routerCart.get('/', async (req, res) => {
@@ -22,7 +22,7 @@ routerCart.get('/', async (req, res) => {
 
 
 routerCart.get('/:cid', async (req, res) => {
-    const { cid } = req.params;
+    const  cid  = req.params.cid;
     const cart = await cartManager.getCartById(cid);
 
     if (cart) {
@@ -45,9 +45,7 @@ routerCart.delete('/:cid', async (req, res) => {
 
 routerCart.post('/:cid/product/:pid', async (req, res) => {
     const { cid, pid } = req.params;
-    const { quantity } = req.body;
-
-    const success = await cartManager.addProductToCart(cid, pid, quantity);
+    const success = await cartManager.addProductToCart(cid, pid);
     if (success) {
         res.status(201).send("Producto agregado al carrito correctamente");
     } else {

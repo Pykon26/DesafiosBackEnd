@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class ProductManager {
   constructor(path) {
@@ -11,6 +12,9 @@ export default class ProductManager {
     if (products.find((producto) => producto.id === product.id)) {
       return "Producto ya agregado";
     }
+
+    product.id = uuidv4();
+    product.status = true; 
     products.push(product);
     await fs.writeFile(this.path, JSON.stringify(products));
   }
@@ -52,26 +56,28 @@ export default class ProductManager {
     const prods = products.filter((prod) => prod.id !== id);
     await fs.writeFile(this.path, JSON.stringify(prods));
   }
+
+
 }
 
-class Product {
+// class Product {
 
-  constructor(title, description, price, thumbnail, code, stock) {
-    this.title = title;
-    this.description = description;
-    this.price = price;
-    this.thumbnail = thumbnail;
-    this.code = code;
-    this.stock = stock;
-    this.id = Product.incrementarID();
-  }
+//   constructor(title, description, price, thumbnail, code, stock) {
+//     this.title = title;
+//     this.description = description;
+//     this.price = price;
+//     this.thumbnail = thumbnail;
+//     this.code = code;
+//     this.stock = stock;
+//     this.id = Product.incrementarID();
+//   }
 
-  static incrementarID() {
-    if (this.idIncrement) {
-      this.idIncrement++;
-    } else {
-      this.idIncrement = 1;
-    }
-    return this.idIncrement;
-  }
-}
+//   static incrementarID() {
+//     if (this.idIncrement) {
+//       this.idIncrement++;
+//     } else {
+//       this.idIncrement = 1;
+//     }
+//     return this.idIncrement;
+//   }
+// }

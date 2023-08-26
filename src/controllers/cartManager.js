@@ -13,6 +13,8 @@ export class CartManager {
       products: []
     };
     this.carts.push(newCart);
+    await fs.writeFile(this.filePath, JSON.stringify(this.carts));
+
     return newCart;
   }
 
