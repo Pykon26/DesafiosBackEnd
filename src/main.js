@@ -51,11 +51,20 @@ io.on('connection', socket => {
 app.use('/static', express.static(path.join(__dirname, '/public')));
 
 
-app.get('/static', (req, res) => {
-	res.render('home', {
-		rutaCSS: 'index',
-		rutaJS: 'index',
-	});
+app.get('/static', async (req, res) => {
+
+    const products = await productManager.getProducts();
+
+    res.render('home', {
+
+        rutaCSS: 'index',
+
+        rutaJS: 'index',
+
+        products
+
+    });
+
 });
 
 app.get('/static/realtimeproducts', (req, res) => {

@@ -20,8 +20,7 @@ socket.on('products', products => {
 	productsContainer.innerHTML = '';
 	products.forEach(prod => {
 		productsContainer.innerHTML += `
-    <div class="product-container">
-      <p>Id: ${prod.id}</p>
+   	  <div class="product-container">
       <p>Title: ${prod.title}</p>
       <p>Description: ${prod.description}</p>
       <p>Price: ${prod.price}</p>
