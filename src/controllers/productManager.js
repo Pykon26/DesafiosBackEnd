@@ -34,21 +34,23 @@ export default class ProductManager {
     }
   }
 
-  async updateProduct(id, { title, description, price, thumbnail, code, stock }) {
-    const products = JSON.parse(await fs.readFile(this.path, 'utf-8'));
-    const indice = products.findIndex((prod) => prod.id === id);
+  async updateProduct(id, updatedFields) {
+    let products = JSON.parse(await fs.readFile(this.path, "utf-8"));
 
-    if (indice !== -1) {
-      products[indice].title = title;
-      products[indice].description = description;
-      products[indice].price = price;
-      products[indice].thumbnail = thumbnail;
-      products[indice].code = code;
-      products[indice].stock = stock;
-      await fs.writeFile(this.path, JSON.stringify(products));
-    } else {
-      return("Producto no encontrado");
+    let foundIndex = products.findIndex((item) => item.id === id);
+
+    if (foundIndex === -1) {
+      console.log("No se encontro el producto con el ID especificado");
+      return null;
     }
+
+    let updatedProduct = { ...products[foundIndex], ...updatedFields };
+    products[foundIndex] = updatedProduct;
+
+    await fs.writeFile(this.path, JSON.stringify(products));
+
+    console.log("Producto actualizado");
+    return updatedProduct;
   }
 
   async deleteProduct(id) {

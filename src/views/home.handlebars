@@ -13,32 +13,3 @@
             {{/each}}
         
 
-{{!-- Hola Matias. como estas? Esta muy bien como conectaste con websockets, es la parte mas complicada. Pero la primer parte de la consigna dice que a la vista home hay que renderizarla solo con handlebars. Y la vista realTimeProducts tiene que mostrar los productos en tiempo real.
-Para corregir esto, primero tenes que quitar el div con id "products-container" que tenes en el archivo home.handlebars y crearlo en el archivo realTimeProducts.handlebars, debajo del formulario. Entonces ahora cada vez que agregas un producto te lo va a mostrar abajo.
-Luego, para mostrar los productos en la vista home tenes que hacerlo asi.
-
-app.get('/static', async (req, res) => {
-
-    const products = await productManager.getProducts();
-
-    res.render('home', {
-
-        rutaCSS: 'index',
-
-        rutaJS: 'index',
-
-        products
-
-    });
-
-});
-
-
-
-Hago asincronica a la llamada, dentro obtengo los productos y los envio como parametro. 
-
-Luego en el archivo home.handlebars vas a usar el metodo {{#each}} https://handlebarsjs.com/guide/builtin-helpers.html#each
-
-Te dejo la documentacion, pero basicamente lo llamas {{#each products}} y accedes a cada campo con this.campo
-
-Cualquier duda escribime. Saludos! --}}
