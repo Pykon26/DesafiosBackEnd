@@ -4,7 +4,7 @@ import cartModel from "../models/carts.models.js";
 const cartRouter = Router()
 
 
-routerCart.get('/', async (req, res) => {
+cartRouter.get('/', async (req, res) => {
 	const { limit } = req.query;
 	try {
 		const carts = await cartModel.find().limit(limit);
@@ -14,7 +14,7 @@ routerCart.get('/', async (req, res) => {
 	}
 });
 
-routerCart.get('/:cid', async (req, res) => {
+cartRouter.get('/:cid', async (req, res) => {
 	const { cid } = req.params;
 	try {
 		const cart = await cartModel.findById(cid);
@@ -26,7 +26,7 @@ routerCart.get('/:cid', async (req, res) => {
 	}
 });
 
-routerCart.post('/', async (req, res) => {
+cartRouter.post('/', async (req, res) => {
 	try {
 		const respuesta = await cartModel.create({});
 		res.status(200).send({ resultado: 'OK', message: respuesta });
@@ -35,7 +35,7 @@ routerCart.post('/', async (req, res) => {
 	}
 });
 
-routerCart.put('/:cid/product/:pid', async (req, res) => {
+cartRouter.put('/:cid/product/:pid', async (req, res) => {
 	const { cid, pid } = req.params;
 
 	try {
@@ -62,7 +62,7 @@ routerCart.put('/:cid/product/:pid', async (req, res) => {
 	}
 });
 
-routerCart.put('/:cid/products/:pid', async (req, res) => {
+cartRouter.put('/:cid/products/:pid', async (req, res) => {
 	const { cid, pid } = req.params;
 	const { quantity } = req.body;
 
@@ -87,7 +87,7 @@ routerCart.put('/:cid/products/:pid', async (req, res) => {
 	}
 });
 
-routerCart.put('/:cid', async (req, res) => {
+cartRouter.put('/:cid', async (req, res) => {
 	const { cid } = req.params;
 	const { updateProducts } = req.body;
 
@@ -110,7 +110,7 @@ routerCart.put('/:cid', async (req, res) => {
 	}
 });
 
-routerCart.delete('/:cid', async (req, res) => {
+cartRouter.delete('/:cid', async (req, res) => {
 	const { cid } = req.params;
 	try {
 		const cart = await cartModel.findByIdAndUpdate(cid, { products: [] });
@@ -122,7 +122,7 @@ routerCart.delete('/:cid', async (req, res) => {
 	}
 });
 
-routerCart.delete('/:cid/products/:pid', async (req, res) => {
+cartRouter.delete('/:cid/products/:pid', async (req, res) => {
 	const { cid, pid } = req.params;
 
 	try {
